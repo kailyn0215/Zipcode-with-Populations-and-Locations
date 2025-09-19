@@ -138,29 +138,4 @@ public class LookupZip {
         // The autograder expects an ExpandableArray<Place> with actual classes used where appropriate.
         return places;
     }
-
-    /**
-     * @param line
-     * @return 
-     
-    private static String[] splitCSV(String line) {
-        // simple state-machine: outside or inside quotes
-        java.util.ArrayList<String> fields = new java.util.ArrayList<String>();
-        StringBuilder cur = new StringBuilder();
-        boolean inQuotes = false;
-        for (int i = 0; i < line.length(); i++) {
-            char ch = line.charAt(i);
-            if (ch == '"') {
-                inQuotes = !inQuotes;
-                // do not add quote to field content
-            } else if (ch == ',' && !inQuotes) {
-                fields.add(cur.toString());
-                cur.setLength(0);
-            } else {
-                cur.append(ch);
-            }
-        }
-        fields.add(cur.toString());
-        return fields.toArray(new String[0]);
-    } */
 }

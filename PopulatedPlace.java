@@ -1,12 +1,15 @@
-// PopulatedPlace.java
+/**
+ * File name: PopulatedPlace.java
+ * Author: Kailyn Brown
+ * Date: 9/19/2025
+ * Purpose: extends LocatedPlace by adding population data.
+ *          used when geographic + population info
+ *          is known for a zipcode.
+ */
+
 public class PopulatedPlace extends LocatedPlace {
     protected int population;
 
-    /**
-     * Constructor order required by autograder:
-     * (String, String, String, double, double, int)
-     * (zipcode, town, state, latitude, longitude, population)
-     */
     public PopulatedPlace(String zipcode, String town, String state, double latitude, double longitude, int population) {
         super(zipcode, town, state, latitude, longitude);
         this.population = population;

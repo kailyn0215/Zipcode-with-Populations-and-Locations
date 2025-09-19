@@ -12,6 +12,7 @@ import java.util.Scanner;
  * NOTE: Do not wrap main in a try/catch (per autograder instructions). This method will throw
  * an exception if files are missing.
  */
+
 public class Driver01 {
     public static void main(String[] args) throws FileNotFoundException {
         if (args.length < 2) {

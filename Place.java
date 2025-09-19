@@ -1,4 +1,12 @@
-// Place.java
+/**
+ * File name: Place.java
+ * Author: Kailyn Brown
+ * Date: 9/19/2025
+ * Purpose: represents a basic place identified by
+ *          zipcode, town, and state. superclass
+ *          for LocatedPlace and PopulatedPlace.
+ */
+
 public class Place {
     protected String zipcode;
     protected String town;
@@ -22,16 +30,7 @@ public class Place {
         return state;
     }
 
-    //@Override
     public String toString() {
-        /*  If town and state are empty, show zipcode (fallback)
-        if ((town == null || town.length() == 0) && (state == null || state.length() == 0)) {
-            return zipcode;
-        }
-        if (state == null || state.length() == 0) {
-            return town;
-        }
-        return town + ", " + state; */
         return town + ", " + state;
     }
 }

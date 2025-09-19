@@ -2,10 +2,11 @@
  * File name: LookupZip.java
  * Author: Kailyn Brown
  * Date: 9/19/2025
- * Purpose: Provides methods to read data from files,
- *          creates Place objects, stores them in arrays/ExpandableArrays,
+ * Purpose: has method to read data from files,
+ *          creates Place objects, stores them in ExpandableArrays,
  *          and performs lookups.
  */
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;

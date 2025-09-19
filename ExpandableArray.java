@@ -1,9 +1,9 @@
-// ExpandableArray.java
 /**
- * A minimal generic expandable array implementation.
- * Provides add, get, set, size, indexOfZip helper (search by Place.getZipcode()).
- *
- * Uses only Object[] internally (no other imports).
+ * File name: ExpandableArray.java
+ * Author: Kailyn Brown
+ * Date: 9/19/2025
+ * Purpose: stores Place objects (and subclasses)
+ *          auto resizes as elements are added
  */
 public class ExpandableArray<T> {
     private Object[] data;

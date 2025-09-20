@@ -135,7 +135,7 @@ public class LookupZip {
         return places;
     }
 
-    public static Place lookup(ExpandableArray<Place> places, String zipcode) {
+    public static Place lookupZip(ExpandableArray<Place> places, String zipcode) {
         if (places == null || zipcode == null) return null;
         int idx = places.indexOfZip(zipcode);
         if (idx >= 0) {

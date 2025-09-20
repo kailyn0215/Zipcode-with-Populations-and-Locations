@@ -50,11 +50,12 @@ public class ExpandableArray<T> {
 
     @SuppressWarnings("unchecked")
     public T get(int index) {
-        if (index < 0 || index >= size) {
-            return null;
-        }
-        return (T) data[index];
+    if (index >= 0 && index < this.size) {
+        return (T) this.data[index]; // ✅ Cast Object → T
+    } else {
+        return null;
     }
+}
 
     public void set(int index, T value) {
         if (index < 0) return;

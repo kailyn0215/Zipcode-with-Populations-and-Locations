@@ -2,7 +2,7 @@
  * File name: ExpandableArray.java
  * Author: Kailyn Brown
  * Date: 9/19/2025
- * Purpose: stores Place objects (and subclasses)
+ * Purpose: stores generic objects (Place and subclasses, or other types)
  *          auto resizes as elements are added
  */
 public class ExpandableArray<T> {
@@ -23,18 +23,37 @@ public class ExpandableArray<T> {
         return size;
     }
 
+    /** Add to the end */
     public void add(T value) {
         ensureCapacity(size + 1);
         data[size++] = value;
     }
 
+    /** Insert at the end (alias for add) */
+    public void insert(T value) {
+        add(value);
+    }
+
+    /** Insert at a specific index */
+    public void insert(int index, T value) {
+        if (index < 0 || index > size) {
+            throw new IndexOutOfBoundsException("Index " + index + " out of bounds");
+        }
+        ensureCapacity(size + 1);
+        // shift elements right
+        for (int i = size; i > index; i--) {
+            data[i] = data[i - 1];
+        }
+        data[index] = value;
+        size++;
+    }
+
+    @SuppressWarnings("unchecked")
     public T get(int index) {
         if (index < 0 || index >= size) {
             return null;
         }
-        @SuppressWarnings("unchecked")
-        T val = (T) data[index];
-        return val;
+        return (T) data[index];
     }
 
     public void set(int index, T value) {
@@ -42,6 +61,21 @@ public class ExpandableArray<T> {
         ensureCapacity(index + 1);
         data[index] = value;
         if (index >= size) size = index + 1;
+    }
+
+    /** Remove at index and return the element */
+    @SuppressWarnings("unchecked")
+    public T remove(int index) {
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException("Index " + index + " out of bounds");
+        }
+        T removed = (T) data[index];
+        for (int i = index; i < size - 1; i++) {
+            data[i] = data[i + 1];
+        }
+        data[size - 1] = null;
+        size--;
+        return removed;
     }
 
     // checks size + creates new if necessary
@@ -61,7 +95,7 @@ public class ExpandableArray<T> {
             Object o = data[i];
             if (o instanceof Place) {
                 Place p = (Place) o;
-                if (zipcode.equals(p.getZipcode())) return i;
+                if (zipcode.equals(p.getZip())) return i;
             }
         }
         return -1;

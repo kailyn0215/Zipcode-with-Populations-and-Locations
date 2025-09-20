@@ -18,7 +18,7 @@ public class Place {
         this.state = (state == null) ? "" : state;
     }
 
-    public String getZipcode() {
+    public String getZip() {
         return zipcode;
     }
 

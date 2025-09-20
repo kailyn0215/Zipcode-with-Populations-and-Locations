@@ -104,11 +104,11 @@ public class LookupZip {
                 if (!Double.isNaN(lat) && !Double.isNaN(lon)) {
                     if (pop >= 0) {
                         // upgrade to PopulatedPlace
-                        PopulatedPlace pnew = new PopulatedPlace(old.getZipcode(), old.getTown(), old.getState(), lat, lon, pop);
+                        PopulatedPlace pnew = new PopulatedPlace(old.getZip(), old.getTown(), old.getState(), lat, lon, pop);
                         places.set(idx, pnew);
                     } else {
                         // upgrade to LocatedPlace
-                        LocatedPlace lnew = new LocatedPlace(old.getZipcode(), old.getTown(), old.getState(), lat, lon);
+                        LocatedPlace lnew = new LocatedPlace(old.getZip(), old.getTown(), old.getState(), lat, lon);
                         places.set(idx, lnew);
                     }
                 } else {
@@ -133,5 +133,14 @@ public class LookupZip {
         s2.close();
 
         return places;
+    }
+
+    public static Place lookup(ExpandableArray<Place> places, String zipcode) {
+        if (places == null || zipcode == null) return null;
+        int idx = places.indexOfZip(zipcode);
+        if (idx >= 0) {
+            return places.get(idx);
+        }
+        return null;
     }
 }

@@ -38,7 +38,7 @@ public class LookupZip {
             String state = parts.length > 2 ? parts[2].replace("\"", "") : "";
             String popStr = parts.length > 3 ? parts[3].replace("\"", "") : "";
             int population = -1;
-            
+
             try {
                 population = Integer.parseInt(popStr);
             } catch (NumberFormatException e) {
@@ -59,7 +59,7 @@ public class LookupZip {
         }
         s1.close();
 
-        // --- Read ziplocs.csv ---
+        // read ziplocs.csv 
         Scanner s2 = new Scanner(new File(filename2));
         while (s2.hasNextLine()) {
             String line = s2.nextLine().trim();
@@ -108,7 +108,7 @@ public class LookupZip {
         }
         s2.close();
 
-        // keep getting [0] instead of [] in autograder so trying to fix :(
+        // keep getting [0] instead of [] in autograder so trying to fix :( NOT HELPINGsdjkhfslkfjsl
         for (int i = 0; i < places.size(); i++) {
         Place p = places.get(i);
         if (p instanceof PopulatedPlace) {
@@ -120,7 +120,6 @@ public class LookupZip {
             }
         }
     }
-
         return places;
     }
 

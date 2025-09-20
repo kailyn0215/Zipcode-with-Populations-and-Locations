@@ -38,7 +38,7 @@ public class Driver01 {
                 System.out.println("Good Bye!");
                 break;
             }
-            int idx = places.indexOfZip(z);
+            int idx = LookupZip.indexOfZip(places, z);
             if (idx == -1) {
                 System.out.println("No such zipcode");
             } else {

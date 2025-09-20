@@ -119,8 +119,7 @@ public class LookupZip {
         return places;
     }
 
-    /** Helper method to find the index of a zip in ExpandableArray<Place> */
-    private static int indexOfZip(ExpandableArray<Place> places, String zipcode) {
+    public static int indexOfZip(ExpandableArray<Place> places, String zipcode) {
         for (int i = 0; i < places.size(); i++) {
             Place p = places.get(i);
             if (p.getZip().equals(zipcode)) return i;

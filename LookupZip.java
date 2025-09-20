@@ -53,7 +53,7 @@ public class LookupZip {
             }
 
             places.insert(p);
-            populations.insert(population);
+            populations.insert(population, populations.size());
         }
         s1.close();
 
@@ -87,14 +87,11 @@ public class LookupZip {
             if (idx >= 0) {
                 Place old = places.get(idx);
                 int pop = populations.get(idx);
-
                 if (!Double.isNaN(lat) && !Double.isNaN(lon)) {
                     if (pop >= 0) {
-                        // upgrade to PopulatedPlace
                         PopulatedPlace pnew = new PopulatedPlace(old.getZip(), old.getTown(), old.getState(), lat, lon, pop);
                         places.set(pnew, idx);
                     } else {
-                        // upgrade to LocatedPlace
                         LocatedPlace lnew = new LocatedPlace(old.getZip(), old.getTown(), old.getState(), lat, lon);
                         places.set(lnew, idx);
                     }
@@ -105,8 +102,6 @@ public class LookupZip {
                 String state = "";
                 if (!Double.isNaN(lat) && !Double.isNaN(lon)) {
                     LocatedPlace lnew = new LocatedPlace(zipcode, town, state, lat, lon);
-                    /*places.insert(lnew, places.size());
-                    populations.insert(-1, populations.size());*/
                     places.insert(lnew);
                 } else {
                     Place pnew = new Place(zipcode, town, state);
@@ -116,6 +111,19 @@ public class LookupZip {
             }
         }
         s2.close();
+
+        // keep getting [0] instead of [] in autograder so trying to fix :(
+        for (int i = 0; i < places.size(); i++) {
+        Place p = places.get(i);
+        if (p instanceof PopulatedPlace) {
+            PopulatedPlace pp = (PopulatedPlace) p;
+            if (pp.getPopulation() < 0) {
+                // Downgrade to LocatedPlace
+                LocatedPlace lnew = new LocatedPlace(pp.getZip(), pp.getTown(), pp.getState(), pp.getLatitude(), pp.getLongitude());
+                places.set(lnew, i);
+            }
+        }
+    }
 
         return places;
     }

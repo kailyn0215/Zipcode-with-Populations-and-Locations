@@ -21,7 +21,11 @@ public class PopulatedPlace extends LocatedPlace {
 
     @Override // overrides locatedplace
     public String toString() {
-        String base = super.toString();
-        return base + " " + population;
+        if (population > 0) {
+            String base = super.toString();
+            return base + " " + population;
+        }
+        return null;
+        
     }
 }

@@ -37,23 +37,23 @@ public class LookupZip {
             String town = parts.length > 1 ? parts[1].replace("\"", "") : "";
             String state = parts.length > 2 ? parts[2].replace("\"", "") : "";
             String popStr = parts.length > 3 ? parts[3].replace("\"", "") : "";
-
             int population = -1;
             Place p;
 
-            if (!popStr.isEmpty()) {
-                try {
-                    population = Integer.parseInt(popStr);
-                    p = new PopulatedPlace(zipcode, town, state, 0.0, 0.0, population);
-                } catch (NumberFormatException e) {
-                    p = new Place(zipcode, town, state);
-                }
+            try {
+                population = Integer.parseInt(popStr);
+            } catch (NumberFormatException e) {
+                population = -1; // invalid or empty population
+            }
+
+            if (population > 0) {
+                p = new PopulatedPlace(zipcode, town, state, 0.0, 0.0, population);
             } else {
                 p = new Place(zipcode, town, state);
             }
 
             places.insert(p);
-            populations.insert(population, populations.size());
+
         }
         s1.close();
 
@@ -86,27 +86,21 @@ public class LookupZip {
             int idx = indexOfZip(places, zipcode);
             if (idx >= 0) {
                 Place old = places.get(idx);
-                int pop = populations.get(idx);
                 if (!Double.isNaN(lat) && !Double.isNaN(lon)) {
-                    if (pop >= 0) {
-                        PopulatedPlace pnew = new PopulatedPlace(old.getZip(), old.getTown(), old.getState(), lat, lon, pop);
-                        places.set(pnew, idx);
-                    } else {
+                    if (old instanceof PopulatedPlace) {
+                        PopulatedPlace pp = (PopulatedPlace) old;
+                        // Only upgrade to PopulatedPlace if population > 0
+                        if (pp.getPopulation() > 0) {
+                            PopulatedPlace pnew = new PopulatedPlace(pp.getZip(), pp.getTown(), pp.getState(), lat, lon, pp.getPopulation());
+                            places.set(pnew, idx);
+                        } else {
+                            LocatedPlace lnew = new LocatedPlace(pp.getZip(), pp.getTown(), pp.getState(), lat, lon);
+                            places.set(lnew, idx);
+                        }
+                    } else if (old instanceof Place) {
                         LocatedPlace lnew = new LocatedPlace(old.getZip(), old.getTown(), old.getState(), lat, lon);
                         places.set(lnew, idx);
                     }
-                }
-            } else {
-                // zip not found yet, create a new entry
-                String town = "";
-                String state = "";
-                if (!Double.isNaN(lat) && !Double.isNaN(lon)) {
-                    LocatedPlace lnew = new LocatedPlace(zipcode, town, state, lat, lon);
-                    places.insert(lnew);
-                } else {
-                    Place pnew = new Place(zipcode, town, state);
-                    places.insert(pnew);
-                    populations.insert(-1);
                 }
             }
         }

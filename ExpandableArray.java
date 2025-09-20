@@ -44,6 +44,7 @@ public class ExpandableArray<T> {
         if (index >= size) size = index + 1;
     }
 
+    // checks size + creates new if necessary
     private void ensureCapacity(int minCapacity) {
         if (minCapacity <= data.length) return;
         int newCap = data.length * 2;
@@ -53,10 +54,7 @@ public class ExpandableArray<T> {
         data = newData;
     }
 
-    /**
-     * Linear search helper: finds first index where the element is a Place (or subclass)
-     * with matching zipcode. Returns -1 if not found.
-     */
+    // searches thru looking for place w param zip
     public int indexOfZip(String zipcode) {
         if (zipcode == null) return -1;
         for (int i = 0; i < size; i++) {

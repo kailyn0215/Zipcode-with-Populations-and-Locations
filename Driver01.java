@@ -1,17 +1,15 @@
-// Driver01.java
+/**
+ * File name: Driver01.java
+ * Author: Kailyn Brown
+ * Date: 9/19/2025
+ * Purpose: driver class that reads zipcode and location data
+ *          using LookupZip, builds ExpandableArray of Places, 
+ *          + allows user to search for zipcodes
+ */
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
-
-/**
- * Driver for HW01. Usage:
- *   java Driver01 uszipcodes.csv ziplocs.csv
- *
- * Prompts user for zipcodes until "00000" is entered (then prints "Good Bye!" and exits).
- *
- * NOTE: Do not wrap main in a try/catch (per autograder instructions). This method will throw
- * an exception if files are missing.
- */
 
 public class Driver01 {
     public static void main(String[] args) throws FileNotFoundException {

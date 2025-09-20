@@ -45,10 +45,10 @@ public class LookupZip {
             if (!pop.isEmpty()) { // if there is a pop
                 try {
                     population = Integer.parseInt(pop);
-                    // for now store as Place with population (lat/lon will be added later)
+                    // store as Place w population (lat/lon added later)
                     p = new PopulatedPlace(zipcode, town, state, 0.0, 0.0, population);
                 } catch (NumberFormatException e) {
-                    // if population isn’t a valid number, just make it a Place
+                    // if pop isn’t a valid number make it a Place
                     p = new Place(zipcode, town, state);
                 }
             } else { // if there isnt a pop
@@ -60,24 +60,22 @@ public class LookupZip {
         }
         s1.close();
 
-        // Read ziplocs.csv next; will upgrade objects already read (or add new ones)
+        // read ziplocs.csv - upgrades / adds to Place
         Scanner s2 = new Scanner(new File(filename2));
         while (s2.hasNextLine()) {
             String line = s2.nextLine().trim();
-            if (line.length() == 0) continue;
-            // skip header heuristic
-            String lcl = line.toLowerCase();
+            if (line.length() == 0) continue; // skip blank
+            String lcl = line.toLowerCase(); // skip header
             if (lcl.contains("zipcode") || lcl.contains("zip")) {
                 continue;
             }
 
             String[] parts = line.split(",");
 
-            // According to assignment: zipcode is column 1 (quoted), latitude column 6 (index 5), longitude column 7 (index 6)
             String zipcode = parts.length > 0 ? parts[0].replace("\"", "") : "";
             double lat = Double.NaN;
             double lon = Double.NaN;
-            // parse lat and lon carefully
+            // parse lat and lon
             if (parts.length > 5) {
                 String latStr = parts[5].replace("\"", "").trim();
                 if (latStr.length() > 0) {
@@ -134,8 +132,6 @@ public class LookupZip {
         }
         s2.close();
 
-        // Now, for any entries that had population but were still plain Place (no lat/lon in ziplocs), we leave them as Place
-        // The autograder expects an ExpandableArray<Place> with actual classes used where appropriate.
         return places;
     }
 }

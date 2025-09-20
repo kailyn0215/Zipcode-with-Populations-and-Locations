@@ -52,8 +52,8 @@ public class LookupZip {
                 p = new Place(zipcode, town, state);
             }
 
-            places.insert(p, places.size());
-            populations.insert(population, populations.size());
+            places.insert(p);
+            populations.insert(population);
         }
         s1.close();
 
@@ -105,12 +105,13 @@ public class LookupZip {
                 String state = "";
                 if (!Double.isNaN(lat) && !Double.isNaN(lon)) {
                     LocatedPlace lnew = new LocatedPlace(zipcode, town, state, lat, lon);
-                    places.insert(lnew, places.size());
-                    populations.insert(-1, populations.size());
+                    /*places.insert(lnew, places.size());
+                    populations.insert(-1, populations.size());*/
+                    places.insert(lnew);
                 } else {
                     Place pnew = new Place(zipcode, town, state);
-                    places.insert(pnew, places.size());
-                    populations.insert(-1, populations.size());
+                    places.insert(pnew);
+                    populations.insert(-1);
                 }
             }
         }

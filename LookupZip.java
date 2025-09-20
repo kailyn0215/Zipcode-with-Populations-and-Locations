@@ -38,17 +38,19 @@ public class LookupZip {
             String state = parts.length > 2 ? parts[2].replace("\"", "") : "";
             String popStr = parts.length > 3 ? parts[3].replace("\"", "") : "";
             int population = -1;
-            Place p;
-
+            
             try {
                 population = Integer.parseInt(popStr);
             } catch (NumberFormatException e) {
                 population = -1; // invalid or empty population
             }
 
+            Place p;
             if (population > 0) {
+                // Only create PopulatedPlace if population > 0
                 p = new PopulatedPlace(zipcode, town, state, 0.0, 0.0, population);
             } else {
+                // Otherwise create normal Place
                 p = new Place(zipcode, town, state);
             }
 
